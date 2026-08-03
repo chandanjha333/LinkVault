@@ -5,6 +5,7 @@ interface User extends mongoose.Document {
   email: string,
   password: string,
   urls: Number,
+  provider: string,
 }
 
 const UserSchema = new mongoose.Schema<User> ({
@@ -20,11 +21,14 @@ const UserSchema = new mongoose.Schema<User> ({
   },
   password: {
     type: String,
-    required: true,
   },
   urls: {
     type: Number,
     default: 0,
+  },
+  provider: {
+    type: String,
+    default: "credentials",
   },
 }, { timestamps: true });
 
