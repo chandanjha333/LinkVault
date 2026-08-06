@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { User } from '@/types/index';
+import { signIn } from 'next-auth/react';
 
 export default function signUpPage() {
-  const router = useRouter();
   const [formData, setFormData] = useState<User>({name:"", email:"", password:""});
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -23,16 +22,17 @@ export default function signUpPage() {
     e.preventDefault();
     setErrorMessage("");
 
-    const res = await fetch("/api/Users", {
+    const res = await fetch("/api/register", {
       method: "POST",
-      body: JSON.stringify({ formData }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
 
     if(!res.ok) {
       const response = await res.json();
       setErrorMessage(response.message);
     } else {
-      router.push("/");
+      await signIn("credentials", { ...formData, redirect: true, callbackUrl: "/" })
     }
   };
 
@@ -78,6 +78,7 @@ export default function signUpPage() {
         </div>
         
         <button type="submit">Submit</button>
+        <button type="button" onClick={() => signIn("google")}>Sign up with Google</button>
       </form>
     </div>
   )
