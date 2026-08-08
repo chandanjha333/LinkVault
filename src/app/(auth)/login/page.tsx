@@ -28,7 +28,7 @@ export default function signInPage() {
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label>Email</label>
           <input 

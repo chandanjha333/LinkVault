@@ -4,12 +4,10 @@ export default function Home() {
   return (
     <div>
       <Header></Header>
-
       <main>
         <h1>LinkVault</h1>
-        <p>Manage your URLs at a single place</p>
-        <p>Create, edit, analyse, and delete URLs</p>
-        <input placeholder="Enter a Link..."/>
+        <p>One stop for all your Links</p>
+        <p>Create, edit, monitor, and delete URLs</p>
       </main>
     </div>
   );

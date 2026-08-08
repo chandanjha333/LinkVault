@@ -18,21 +18,25 @@ export default function signUpPage() {
     }));
   };
 
-  const handleSubmit = async (e: React.SubmitEvent)=>{
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>)=>{
     e.preventDefault();
     setErrorMessage("");
 
-    const res = await fetch("/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    if(!res.ok) {
-      const response = await res.json();
-      setErrorMessage(response.message);
-    } else {
-      await signIn("credentials", { ...formData, redirect: true, callbackUrl: "/" })
+      if(!res.ok) {
+        const data = await res.json().catch(() => ({message: "Something went wrong"}));
+        setErrorMessage(data.message);
+      } else {
+        await signIn("credentials", { ...formData, redirect: true, callbackUrl: "/" })
+      }
+    } catch {
+      setErrorMessage("Network error, please try again");
     }
   };
 
@@ -44,11 +48,11 @@ export default function signUpPage() {
         <div>
           <label>Name</label>
           <input 
-            type="string"
+            type="text"
             id="name"
             name="name"
             required
-            value={formData.name}
+            placeholder="Enter name"
             onChange={handleChange}
           />
         </div>
@@ -60,7 +64,7 @@ export default function signUpPage() {
             id="email"
             name="email"
             required
-            value={formData.email}
+            placeholder="Enter your email"
             onChange={handleChange}
           />
         </div>
@@ -72,7 +76,7 @@ export default function signUpPage() {
             id="password"
             name="password"
             required
-            value={formData.password}
+            placeholder="Enter your password"
             onChange={handleChange}
           />
         </div>
