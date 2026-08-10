@@ -5,9 +5,9 @@ export default function Header() {
     <div>
       <div>
         LinkVault
-        <Link href="@/">Home</Link>
-        <Link href="@/urls">URLs</Link>
-        <Link href="@/features">Features</Link>
+        <Link href="/">Home</Link>
+        <Link href="/urls">URLs</Link>
+        <Link href="/features">Features</Link>
       </div>
     </div>
   )
