@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import connectDB from "@/lib/dbConnect";
-import User from "@/lib/models/user";
+import User from "@/lib/models/User";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 

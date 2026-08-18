@@ -1,9 +1,10 @@
 import Header from "@/ui/header";
 import Link from "next/link";
-import { useState } from "react";
+import { use, useState } from "react";
 
 export default function urlPage() {
   const [redirectURL, setRedirectURL] = useState("");
+  const [customId, setCustomId] = useState("");
 
   return (
     <div>
@@ -14,6 +15,11 @@ export default function urlPage() {
           placeholder="Enter URL"
           required
           onChange={(e) => setRedirectURL(e.target.value)}
+        />
+        <input 
+          placeholder="custom shortId"
+          maxLength={30}
+          onChange={(e) => setCustomId(e.target.value)}
         />
         <button type="submit">link</button> 
       </form>
